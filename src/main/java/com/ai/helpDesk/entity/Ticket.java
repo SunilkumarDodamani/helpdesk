@@ -2,7 +2,9 @@ package com.ai.helpDesk.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDateTime;
+
 
 
 @Entity
@@ -27,11 +29,13 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn;
+    @Column(name = "created_on", columnDefinition = "TIMESTAMP")
+    private LocalDateTime createdOn;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn;
+    @Column(name = "updated_on", columnDefinition = "TIMESTAMP")
+    private LocalDateTime updatedOn;
+
+
 
     // Getters & Setters
     public Long getId() {
@@ -82,19 +86,19 @@ public class Ticket {
         this.priority = priority;
     }
 
-    public Date getCreatedOn() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Date createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 
-    public Date getUpdatedOn() {
+    public LocalDateTime getUpdatedOn() {
         return updatedOn;
     }
 
-    public void setUpdatedOn(Date updatedOn) {
+    public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
     }
 

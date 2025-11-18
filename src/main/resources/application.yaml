@@ -3,11 +3,15 @@ spring:
     name: Help Desk Backend
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL}        # Render MySQL URL
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+      url: jdbc:mysql://sql12.freesqldatabase.com:3306/sql12808290?useSSL=false&serverTimezone=UTC
+      username: sql12808290
+      password: 8GvZgaYraf
 
   jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
     hibernate:
       ddl-auto: update
 
