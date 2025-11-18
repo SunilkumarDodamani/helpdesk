@@ -27,7 +27,7 @@ const ChatBot = () => {
     try {
       
       const res = await axios.post(
-        "http://localhost:8081/api/v1/ai/gemini",
+        "https://helpdesk-n0a1.onrender.com/api/v1/ai/gemini",
         input,   
         { headers: { "Content-Type": "application/json" } }
       );
