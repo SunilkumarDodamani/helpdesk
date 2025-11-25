@@ -3,9 +3,11 @@ spring:
     name: Help Desk Backend
 
   datasource:
-      url: jdbc:mysql://sql12.freesqldatabase.com:3306/sql12808290?useSSL=false&serverTimezone=UTC
-      username: sql12808290
-      password: 8GvZgaYraf
+      url: jdbc:postgresql://dpg-d4ito0p5pdvs7388rrsg-a.oregon-postgres.render.com:5432/helpdesk_d30y
+
+
+      username: helpdesk_d30y_user
+      password: S9ZvStxuJfqxMOaKowSJ9ZspMxc4S0ha
 
   jpa:
     properties:
@@ -14,6 +16,7 @@ spring:
           time_zone: UTC
     hibernate:
       ddl-auto: update
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   ai:
     openai:
