@@ -2,37 +2,8 @@ spring:
   application:
     name: Help Desk Backend
 
-  datasource:
-      url: jdbc:postgresql://dpg-d4ito0p5pdvs7388rrsg-a.oregon-postgres.render.com:5432/helpdesk_d30y
-
-
-      username: helpdesk_d30y_user
-      password: S9ZvStxuJfqxMOaKowSJ9ZspMxc4S0ha
-
-  jpa:
-    properties:
-      hibernate:
-        jdbc:
-          time_zone: UTC
-    hibernate:
-      ddl-auto: update
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-  ai:
-    openai:
-      api-key: ${OPENAI_API_KEY}        # Set this in Render environment
-      base-url: https://api.openai.com
-      chat:
-        enabled: true
-        model: gpt-4o-mini
-
-    google:
-      genai:
-        api-key: ${GOOGLE_API_KEY}      # Set this in Render environment
-        project-id: gen-lang-client-0441575655
-        chat:
-          enabled: true
-          model: gemini-1.5-flash
+  profiles:
+    active: dev
 
 server:
   port: 8081
