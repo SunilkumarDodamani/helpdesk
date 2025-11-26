@@ -15,21 +15,21 @@ spring:
         ddl-auto: update
         database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-    ai:
-      openai:
-        api-key: ${OPENAI_API_KEY}        # Set this in Render environment
-        base-url: https://api.openai.com
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}        # Set this in Render environment
+      base-url: https://api.openai.com
+      chat:
+        enabled: true
+        model: gpt-4o-mini
+
+    google:
+      genai:
+        api-key: ${GOOGLE_API_KEY}      # Set this in Render environment
+        project-id: gen-lang-client-0441575655
         chat:
           enabled: true
-          model: gpt-4o-mini
-
-      google:
-        genai:
-          api-key: ${GOOGLE_API_KEY}      # Set this in Render environment
-          project-id: gen-lang-client-0441575655
-          chat:
-            enabled: true
-            model: gemini-1.5-flash
+          model: gemini-1.5-flash
 
 server:
   port: 8081
