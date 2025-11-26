@@ -6,10 +6,10 @@ const ChatBot = () => {
     { sender: "bot", text: "Hello! How can I assist you today?" }
   ]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const chatEndRef = useRef(null);
 
- 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -17,18 +17,18 @@ const ChatBot = () => {
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    //  user message
+    // user message
     const newMessage = { sender: "user", text: input };
     setMessages((prev) => [...prev, newMessage]);
-
-    
     setInput("");
 
+    setLoading(true);
+
     try {
-      
+      // FIX: send JSON object, not raw string
       const res = await axios.post(
         "https://helpdesk-n0a1.onrender.com/api/v1/ai/gemini",
-        input,   
+        { prompt: input },
         { headers: { "Content-Type": "application/json" } }
       );
 
@@ -36,12 +36,13 @@ const ChatBot = () => {
         ...prev,
         { sender: "bot", text: formatMessage(res.data) }
       ]);
-
     } catch (error) {
       setMessages((prev) => [
         ...prev,
         { sender: "bot", text: "Something went wrong. Please try again." }
       ]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,12 +50,9 @@ const ChatBot = () => {
     if (e.key === "Enter") sendMessage();
   };
 
-  
   const formatMessage = (text) => {
     if (!text || typeof text !== "string") return "";
-    return text
-      .replace(/\* /g, "• ")
-      .replace(/\n/g, "<br/>");
+    return text.replace(/\* /g, "• ").replace(/\n/g, "<br/>");
   };
 
   return (
@@ -65,13 +63,10 @@ const ChatBot = () => {
       <div className="row justify-content-center w-100 m-0">
         <div className="col-12 col-md-6 p-0">
           <div className="card shadow-lg" style={{ height: "100vh" }}>
-
-           
             <div className="card-header bg-primary text-white text-center py-3">
               <h5 className="mb-0">Help Desk Assistant</h5>
             </div>
 
-           
             <div
               className="card-body p-3"
               style={{
@@ -80,6 +75,12 @@ const ChatBot = () => {
                 background: "#f7f7f7"
               }}
             >
+              {loading && (
+                <div className="text-center mb-3">
+                  <div className="spinner-border text-primary"></div>
+                </div>
+              )}
+
               {messages.map((msg, index) => (
                 <div
                   key={index}
@@ -104,7 +105,6 @@ const ChatBot = () => {
               <div ref={chatEndRef} />
             </div>
 
-            {/* Input Box */}
             <div className="card-footer p-2">
               <div className="input-group">
                 <input
@@ -120,7 +120,6 @@ const ChatBot = () => {
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
