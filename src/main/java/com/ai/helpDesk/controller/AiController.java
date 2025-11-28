@@ -14,14 +14,23 @@ public class AiController {
     public AiController(AIService aiService) {
         this.aiService = aiService;
     }
+
     @PostMapping("/openai")
     public ResponseEntity<String> askOpenAI(@RequestParam String prompt) {
         return ResponseEntity.ok(aiService.askOpenAi(prompt));
     }
 
+
     @PostMapping("/gemini")
     public ResponseEntity<String> askGemini(@RequestBody String prompt) {
         return ResponseEntity.ok(aiService.askGemini(prompt));
     }
+
+    @RequestMapping(value = "" ,method=RequestMethod.HEAD)
+    public ResponseEntity<?> getHeader(){
+        return ResponseEntity.ok().build();
+    }
+
+
 
 }

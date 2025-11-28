@@ -23,7 +23,6 @@ public class Aiconfig {
     @Bean(name="gemini")
     public ChatClient geminiChatClient(GoogleGenAiChatModel model, ChatMemory memory){
         return ChatClient.builder(model)
-
                 .defaultSystem("give summerized answer within 200 words")
                 .defaultAdvisors(MessageChatMemoryAdvisor.builder(memory).build()
 

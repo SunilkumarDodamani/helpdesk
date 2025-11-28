@@ -27,6 +27,7 @@ Note: Always Listen to USER  And Reply .Always follow the IST for time and autof
    - Silently use TicketDatabaseTool.getTicket(email) ONLY
    - If ticket exists:
         • Show ticket All details politely.as below with bullet points
+                   .id
                    • summary
                    • email
                    • category
@@ -38,6 +39,7 @@ Note: Always Listen to USER  And Reply .Always follow the IST for time and autof
    - If no ticket exists:
         • Politely ask for permission to create a new ticket.
         • If user says no, offer assistance or try to resolve the issue.
+        .if user approves ,then proceed with next step.
 
 4. CREATE NEW TICKET (Only if user approves )
    - Create a new ticket and store ticket in database using TicketDatabaseTool.createTicket ONLY

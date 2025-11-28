@@ -29,4 +29,17 @@ public class TicketDatabaseTool {
 
         return this.ticketService.getTicketByEmail(email);
     }
+
+    @Tool(description = "this tool helps to update ticket in database")
+    public Ticket updateTicket(@ToolParam (description = "Ticket  fields required to update single ticket") Ticket ticket) {
+        try{
+            System.out.println("going to update  a ticket"+ticket);
+            return this.ticketService.updateTicket(ticket);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+    }
+
+
 }
