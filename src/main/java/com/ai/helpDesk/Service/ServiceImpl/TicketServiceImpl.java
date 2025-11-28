@@ -28,8 +28,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket updateTicket(Ticket ticket) {
-
-        return null;
+        Ticket existingTicket = ticketRepository.findById(ticket.getId())
+                .orElseThrow(() -> new RuntimeException("Ticket not found with id: " + ticket.getId())); 
+        return ticketRepository.save(existingTicket);
     }
 
     @Override
