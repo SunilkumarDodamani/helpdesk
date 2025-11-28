@@ -27,7 +27,7 @@ const ChatBot = () => {
     try {
       // FIX: send JSON object, not raw string
       const res = await axios.post(
-        "https://helpdesk-n0a1.onrender.com/api/v1/ai/gemini",
+        "http://localhost:8081/api/v1/ai/gemini",
         { prompt: input },
         { headers: { "Content-Type": "application/json" } }
       );
