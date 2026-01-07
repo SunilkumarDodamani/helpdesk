@@ -12,6 +12,8 @@ public class AIService {
     private final ChatClient openAi;
     private final ChatClient gemini;
     private final TicketDatabaseTool ticketDatabaseTool;
+    private long lastCallTime=0;
+    private static final long coolDown_Ms=2000;
 
     @Value("classpath:helpdesk-system.st")
     private Resource systemPromptResource;
@@ -24,7 +26,8 @@ public class AIService {
         this.ticketDatabaseTool = ticketDatabaseTool;
     }
 
-    public String askOpenAi(String query) {
+    public synchronized String askOpenAi(String query) {
+
         return openAi
                 .prompt()
                 .user(query)
@@ -32,17 +35,26 @@ public class AIService {
                 .content();
     }
 
-    public String askGemini(String query) {
+    public synchronized String askGemini(String query) {
         try {
+            long now=System.currentTimeMillis();
+            long diff=now-lastCallTime;
+            if(diff<coolDown_Ms){
+                Thread.sleep(coolDown_Ms-diff);
+            }
+            lastCallTime=System.currentTimeMillis();
             return gemini
                     .prompt()
                     .tools(ticketDatabaseTool)
                     .system(systemPromptResource)
-                    .user(user -> user.text(query))
+                    .user(query)
                     .call()
                     .content();
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            if (e.getMessage() != null && e.getMessage().contains("429")) {
+                return "⚠️  receiving too many requests. Please try again shortly.";
+            }
+            throw new RuntimeException("Failed to call Gemini: " + e.getMessage());
         }
     }
 

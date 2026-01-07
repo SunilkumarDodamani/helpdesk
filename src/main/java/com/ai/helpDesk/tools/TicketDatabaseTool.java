@@ -6,6 +6,8 @@ import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class TicketDatabaseTool {
     private final TicketService ticketService;
@@ -25,7 +27,7 @@ public class TicketDatabaseTool {
     }
 
     @Tool(description = "this tool helps to get ticket by use email")
-    public Ticket getTicket(@ToolParam(description = "email of the user whose Ticket needs to find") String email){
+    public List<Ticket> getTicket(@ToolParam(description = "email of the user whose Ticket needs to find") String email){
 
         return this.ticketService.getTicketByEmail(email);
     }

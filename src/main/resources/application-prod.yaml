@@ -1,19 +1,20 @@
 spring:
   datasource:
-    url: jdbc:postgresql://dpg-d4ito0p5pdvs7388rrsg-a.oregon-postgres.render.com:5432/helpdesk_d30y
+    url:  jdbc:postgresql://dpg-d5f0r6ali9vc73d94n10-a:5432/helpdesk_d30y_96j3
+    username: helpdesk_d30y_96j3_user
+    password: DOn7nSbT1a8GYPis3cXvcMKk0DHVVKxe
 
-
-    username: helpdesk_d30y_user
-    password: S9ZvStxuJfqxMOaKowSJ9ZspMxc4S0ha
-
-    jpa:
-      properties:
-        hibernate:
-          jdbc:
-            time_zone: UTC
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
       hibernate:
-        ddl-auto: update
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+
+
+
 
   ai:
     openai:
@@ -30,6 +31,13 @@ spring:
         chat:
           enabled: true
           model: gemini-1.5-flash
+    retry:
+      enabled: false
 
 server:
   port: 8081
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

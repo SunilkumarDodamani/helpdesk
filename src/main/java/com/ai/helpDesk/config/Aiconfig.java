@@ -3,6 +3,7 @@ package com.ai.helpDesk.config;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.google.genai.GoogleGenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -24,8 +25,8 @@ public class Aiconfig {
     public ChatClient geminiChatClient(GoogleGenAiChatModel model, ChatMemory memory){
         return ChatClient.builder(model)
                 .defaultSystem("give summerized answer within 200 words")
-                .defaultAdvisors(MessageChatMemoryAdvisor.builder(memory).build()
-
+                .defaultAdvisors(MessageChatMemoryAdvisor.builder(memory).build(),
+                new SimpleLoggerAdvisor()
                 )
                 .build();
     }

@@ -1,10 +1,18 @@
 spring:
   datasource:
-    url: jdbc:postgresql://dpg-d4ito0p5pdvs7388rrsg-a.oregon-postgres.render.com:5432/helpdesk_d30y
+    url: jdbc:postgresql://dpg-d5f0r6ali9vc73d94n10-a.oregon-postgres.render.com:5432/helpdesk_d30y_96j3?sslmode=require
+    username: helpdesk_d30y_96j3_user
+    password: DOn7nSbT1a8GYPis3cXvcMKk0DHVVKxe
+    driver-class-name: org.postgresql.Driver
 
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
-    username: helpdesk_d30y_user
-    password: S9ZvStxuJfqxMOaKowSJ9ZspMxc4S0ha
+    username: helpdesk_d30y_96j3_user
+    password: DOn7nSbT1a8GYPis3cXvcMKk0DHVVKxe
+
 
     jpa:
       properties:

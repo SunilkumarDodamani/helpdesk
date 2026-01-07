@@ -6,18 +6,22 @@ import com.ai.helpDesk.repository.TicketRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TicketServiceImpl implements TicketService {
 
     private final TicketRepository ticketRepository;
 
     public TicketServiceImpl(TicketRepository ticketRepository) {
+
         this.ticketRepository = ticketRepository;
     }
 
     @Override
     @Transactional
     public Ticket createTicket(Ticket ticket) {
+        ticket.setId(null);
        return  this.ticketRepository.save(ticket);
     }
 
@@ -29,7 +33,12 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public Ticket updateTicket(Ticket ticket) {
         Ticket existingTicket = ticketRepository.findById(ticket.getId())
-                .orElseThrow(() -> new RuntimeException("Ticket not found with id: " + ticket.getId())); 
+                .orElseThrow(() -> new RuntimeException("Ticket not found with id: " + ticket.getId()));
+        existingTicket.setSummary(ticket.getSummary());
+        existingTicket.setStatus(ticket.getStatus());
+        existingTicket.setPriority(ticket.getPriority());
+        existingTicket.setEmail(ticket.getEmail());
+        existingTicket.setUpdatedOn(ticket.getUpdatedOn());
         return ticketRepository.save(existingTicket);
     }
 
@@ -39,7 +48,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Ticket getTicketByEmail(String email) {
-        return ticketRepository.findTicketByEmail(email).orElse(null);
+    public List<Ticket> getTicketByEmail(String email) {
+        return ticketRepository.findTicketsByEmail(email);
     }
 }
